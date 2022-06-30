@@ -1,7 +1,5 @@
-const path = require('path')
 const { body } = require('express-validator')
-//const { getByEmail } = require('../../repositories/auth-repository') no me sirve porque devuelve un error si no lo encuentra
-const { User, sequelize } = require('../../models')
+const { getByEmail } = require('../../repositories/auth-repository')
 
 module.exports = [
     body('firstName')
@@ -12,17 +10,20 @@ module.exports = [
     body('email').notEmpty().withMessage('Debe completar el compo email')
         .isEmail().withMessage('Debe ingresar un mail valido')
         .custom(async (value, { req }) => {
-            const userFind = await User.findOne({
-                where: {
-                    email: req.body.email
+            try {
+                const userFind = await getByEmail(req.body.email)
+                if (userFind) {
+                    throw new TypeError('Email no valido') //para no dar mas información
                 }
-            })
-            //   console.log(userFind, 'userFind')
-            if (userFind) {
-                //401 Unauthorized
-                throw new Error('Email no valido') //para no dar mas información
+                //este error lo captura el catch, y si el error es una instancia de typeError manda otro error que lo captura express-validator
+                //ren caso de no ser una instancia de TypeError retorna true
+            } catch (err) {
+                if (err instanceof TypeError) {
+                    throw new TypeError('Email no valido')
+                } else {
+                    return true
+                }
             }
-            return true
         }),
     body('password').notEmpty().withMessage('Debe completar el campo contraseña')
         .isLength({ min: 8 }).withMessage("Su contraseña debe tener al menos 8 caracteres")
