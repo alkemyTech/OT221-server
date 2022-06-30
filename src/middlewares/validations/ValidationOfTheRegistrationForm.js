@@ -16,7 +16,7 @@ module.exports = [
                     throw new TypeError('Email no valido') //para no dar mas información
                 }
                 //este error lo captura el catch, y si el error es una instancia de typeError manda otro error que lo captura express-validator
-                //ren caso de no ser una instancia de TypeError retorna true
+                //en caso de no ser una instancia de TypeError retorna true
             } catch (err) {
                 if (err instanceof TypeError) {
                     throw new TypeError('Email no valido')
