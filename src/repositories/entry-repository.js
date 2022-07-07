@@ -5,8 +5,8 @@ const getEntryById = async (id) =>{
     return entry
 }
 
-const findById=async (id)=>{
-  const entry =await Entry.findOne({where:{ id:id }})
+const findById = async (id)=>{
+  const entry = await Entry.findOne({where:{ id:id }})
   if (!entry){
     return "Entry does not exist"
   }
@@ -37,6 +37,10 @@ const findAllNews = async() => {
     const entries = await Entry.findAll({ where:{ type:"news" } });
     return entries;
   }
+ 
+  const deleteEntry = async(id) => {
+    await Entry.destroy({ where:{ id:id } });
+  }
 
 
 module.exports = {
@@ -45,4 +49,5 @@ module.exports = {
   getEntryById,
   findAllNews,
   createEntry,
+  deleteEntry,
 }

@@ -1,7 +1,12 @@
 
 const entryRepository = require('../repositories/entry-repository')
 
+const deleteEntry = async (id) =>{
 
+return await entryRepository.deleteEntry(id)
+
+
+}
 
 const updateEntry = async (newContent) =>{
    
@@ -16,10 +21,11 @@ const updateEntry = async (newContent) =>{
 
 
 const getModifiedNewsEntries = async() => {
-  const entries = await findAllNews();
+  const entries = await entryRepository.findAllNews();
 
-  const modifiedEntries = entries.map( ({ name, image, createdAt }) => (
+  const modifiedEntries = entries.map( ({id, name, image, createdAt }) => (
       {
+        id,
         name,
         image, 
         createdAt
@@ -30,8 +36,8 @@ const getModifiedNewsEntries = async() => {
   return modifiedEntries;
 }
 
-const getNewsById=async(id)=>{
-  return await findById(id)
+const getNewsById = async ( id )=>{
+  return await entryRepository.findById(id)
 }
 
 const createEntry = async( entry ) =>{
@@ -44,4 +50,5 @@ module.exports ={
   getNewsById,
   createEntry,
   updateEntry,
+  deleteEntry
 }
