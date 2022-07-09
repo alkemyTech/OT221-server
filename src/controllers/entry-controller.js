@@ -6,7 +6,7 @@ class EntryDto {
     //id property can be null because received data can be a new record
 
     constructor ({id,title, image, content, category, type}){
-        this.id = Number(id),
+        this.id = id,
         this.name = title,
         this.image = image, 
         this.content = content,
@@ -33,20 +33,6 @@ class EntryDto {
     }
 }
 
-
-const deleteEntry = async (req, res, next ) => {
-  const entryId = Number(req.params.id)
-
-  try{
-    
-     await entryService.deleteEntry(id)
-
-    }
-  catch (err) {
-  res.status(400)
-  res.json({error:err.message});
-  }
-}
 const updateNewsEntry = async (req,res,next)=>{
    
     const newsEntryDto = new EntryDto ({...req.body, id: req.params.id, type: 'news'});
@@ -66,16 +52,16 @@ const updateNewsEntry = async (req,res,next)=>{
 const getNewsEntries = async(req, res) => {
   try {
       const entries = await entryService.getModifiedNewsEntries();
-      res.status(200).json( entries );
+      res.status(200).json({ entries });
   } catch (err) {
       console.log(err);
-      res.status(500).json(err.message)
+      res.status(500).json({err})
   }
   
 }
 
 const getNewsEntryById= async (req, res)=>{
-  const id = Number(req.params.id)
+  const {id}=req.params
   try{
     const entries= await entryService.getNewsById(id)
     res.status(200).json({
@@ -114,6 +100,5 @@ module.exports = {
   getNewsEntries,
   getNewsEntryById,
   updateNewsEntry,
-  createNewEntry,
-  deleteEntry
+  createNewEntry
 }
