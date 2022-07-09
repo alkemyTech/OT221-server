@@ -39,9 +39,7 @@ const findAllNews = async() => {
   }
  
   const deleteEntry = async(id) => {
-   const deletedEntry = await Entry.findById({ where:{ id : id } });
-   await deletedEntry.destroy()
-   return deletedEntry
+    await Entry.destroy({ where:{ id:id } });
   }
 
 

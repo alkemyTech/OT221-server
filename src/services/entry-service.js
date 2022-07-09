@@ -3,13 +3,7 @@ const entryRepository = require('../repositories/entry-repository')
 
 const deleteEntry = async (id) =>{
 
-  const deletedEntry = await entryRepository.deleteEntry(id)
-
-  if(!deletedEntry)
-  {
-    throw new Error('La entrada no existe !!!')
-  }
-return deletedEntry
+return await entryRepository.deleteEntry(id)
 
 
 }

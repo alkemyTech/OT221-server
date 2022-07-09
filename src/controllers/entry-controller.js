@@ -38,9 +38,9 @@ const deleteEntry = async (req, res, next ) => {
   const entryId = Number(req.params.id)
 
   try{
+    
+     await entryService.deleteEntry(id)
 
-   const deletedEntry = await entryService.deleteEntry(entryId)
-    res.status(200).json({deleted:deletedEntry})
     }
   catch (err) {
   res.status(400)
