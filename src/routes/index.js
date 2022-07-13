@@ -8,6 +8,7 @@ const contactRoutes = require('./contact');
 const activitiesRoutes = require('./activities');
 const categoryRoutes = require('./category')
 const testimonialRoutes = require('./testimonials')
+const memberRoutes = require('./member')
 
 router.use("/users", usersRoutes)
 
@@ -24,6 +25,8 @@ router.use("/contacts", contactRoutes)
 router.use("/activity", activitiesRoutes);
 
 router.use("/categories", categoryRoutes);
+
+router.use("/members", memberRoutes);
 
 
 
