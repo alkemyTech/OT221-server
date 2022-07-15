@@ -1,5 +1,4 @@
 const authService = require('../services/auth-service')
-const { processRegister } = require('../repositories/auth-repository');
 const userService = require('../services/user-service')
 const { validationResult } = require('express-validator')
 const { RegisterValidationError } = require('../errors/auth-errors')

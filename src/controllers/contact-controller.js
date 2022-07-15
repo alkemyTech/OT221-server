@@ -12,6 +12,19 @@ const storeContact = async (req, res, next) => {
     }
 }
 
+const getContacts = async (req, res, next) => {
+    try {
+        const { query } = req
+        const page = query.page - 1;
+        const allContacts = await contactService.getAllContacts(page)
+        res.status(200).json(allContacts)
+    }
+    catch (err) {
+        next(err)
+    }
+}
+
 module.exports = {
-    storeContact
+    storeContact,
+    getContacts
 }

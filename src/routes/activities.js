@@ -24,4 +24,6 @@ router.get("/image/:key", (req, res) => {
   result.pipe(res);
 });
 
+router.put('/:id', activityController.updateActivity)
+
 module.exports = router;

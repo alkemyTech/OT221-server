@@ -11,6 +11,10 @@ const getAllActivities = async (page) => {
     return activities
 }
 
+const updateActivities = async (id,data) => {
+   return await activitiesRepository.updateActivities(id,data)
+}
+
 const createActivity = async (activity, imagePath) => {
     const activities = await activitiesRepository.postActivity(activity,imagePath)
     return activities
@@ -18,5 +22,6 @@ const createActivity = async (activity, imagePath) => {
 
 module.exports = {
     getAllActivities,
+    updateActivities,
     createActivity
 }
