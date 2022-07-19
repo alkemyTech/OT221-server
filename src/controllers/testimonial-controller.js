@@ -20,15 +20,29 @@ const getAllTestimonials = async (req, res, next) => {
 
 }
 
-const createNewTestimony = async (req, res) => {
+const deleteTestimonial = async (req, res) =>{
+
+    const testimonialId = Number(req.params.id)
+
+    try {
+        const deletedTestimonial = await testimonialService.deleteTestimonial(testimonialId)
+
+        res.json({ deletedTestimonial: deletedTestimonial })
+
+    } catch (err) {
+
+        res.status(500).json({err: err.message})
+    }
+}  
+const createNewTestimonial = async (req, res) => {
     try {
         console.log(req)
         const image = await fileServices.checkFileAndUpload(req.file)
-        const testimonySaved = await testimonialService.createTestimony({
+        const testimonialSaved = await testimonialService.createTestimonial({
             ...req.body,
             image
         })
-        res.status(201).json(testimonySaved)
+        res.status(201).json(testimonialSaved)
     } catch (err) {
         res.status(500).json(err);
     }
@@ -36,5 +50,6 @@ const createNewTestimony = async (req, res) => {
 
 module.exports = {
     getAllTestimonials,
-    createNewTestimony
+    deleteTestimonial,
+    createNewTestimonial
 }

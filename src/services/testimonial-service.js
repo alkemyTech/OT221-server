@@ -13,13 +13,24 @@ const getAllTestimonials = async (limit,page) => {
     return testimonialsForPage
 }
 
-const createTestimony = async( testimony ) =>{
-    const testimonyStored = await testimonialRepository.createTestimony(testimony);
-    return testimonyStored;
+const deleteTestimonial = async (testimonialId) =>{
+
+    const deletedTestimonial = await testimonialRepository.deleteTestimonial(testimonialId)
+
+    if(!deletedTestimonial){
+        throw new Error('El testimonio que desea eliminar no existe')
+    }
+
+    return deletedTestimonial
+}
+const createTestimonial = async( testimonial ) =>{
+    const testimonialStored = await testimonialRepository.createTestimony(testimonial);
+    return testimonialStored;
   }
 
 
 module.exports= {
     getAllTestimonials,
-    createTestimony
+    deleteTestimonial,
+    createTestimonial
 }

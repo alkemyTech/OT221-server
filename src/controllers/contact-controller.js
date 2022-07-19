@@ -1,16 +1,21 @@
-const contactService = require('../services/contact-service')
-
+const contactService = require("../services/contact-service");
+const emailService = require("../services/send-email");
 
 const storeContact = async (req, res, next) => {
-    try {
-        const newContact = req.body
-        console.log(req.body)
-        const contactStored = await contactService.createContact(newContact)
-        res.json(contactStored)
-    } catch (err) {
-        next(err)
-    }
-}
+  try {
+    const newContact = req.body;
+    console.log(req.body);
+    emailService.sendEmail({
+      to: newContact.email,
+      subject: "SOMOS MAS - Gracias por contactarte", 
+      text: emailService.contactEmailLayout(newContact.name)
+    });
+    const contactStored = await contactService.createContact(newContact);
+    res.json(contactStored);
+  } catch (err) {
+    res.json(err);
+  }
+};
 
 const getContacts = async (req, res, next) => {
     try {

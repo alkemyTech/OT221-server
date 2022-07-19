@@ -1,7 +1,7 @@
 const { check } = require("express-validator");
 const validateFields = require("../field-validator");
 
-const validateCreateTestimony = [
+const validateCreateTestimonial = [
   check("name")
     .exists()
     .withMessage("The name field must be present  at the request")
@@ -21,4 +21,4 @@ const validateCreateTestimony = [
   },
 ];
 
-module.exports = { validateCreateTestimony };
+module.exports = { validateCreateTestimonial };
