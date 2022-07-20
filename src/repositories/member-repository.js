@@ -1,7 +1,6 @@
 const { Members } = require('../models');
 
-const postMember = async (member, imagePath) => {
-    member.image = imagePath
+const postMember = async (member) => {
     const memberStored = await Members.create(member)
     return memberStored
 }

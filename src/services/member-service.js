@@ -1,8 +1,7 @@
 const memberRepository = require('../repositories/member-repository');
-const memberRepository = require("../repositories/member-repository")
 
-const createMember = async (member, imagePath) => {
-    const memberStored = await memberRepository.postMember(member, imagePath);
+const createMember = async (member) => {
+    const memberStored = await memberRepository.postMember(member);
     return memberStored;
 }
 

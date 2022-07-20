@@ -6,7 +6,7 @@ const organizationsRoutes = require('./organization')
 const newsRoutes = require('./news');
 const contactRoutes = require('./contact');
 const activitiesRoutes = require('./activities');
-const memberRoutes = require('./members')
+const memberRoutes = require('./members');
 const testimonialRoutes = require('./testimonials')
 const categoriesRoutes = require('./categories')
 
@@ -28,12 +28,6 @@ router.use("/activity", activitiesRoutes);
 router.use("/categories", categoriesRoutes)
 
 router.use("/members", memberRoutes);
-
-
-
-
-router.use("/members", memberRoutes);
-
 
 
 
