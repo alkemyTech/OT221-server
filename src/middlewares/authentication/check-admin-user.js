@@ -19,12 +19,15 @@ const checkAdminUser = (req, res, next) => {
       error: 'No token attached'
     })
   }
+  
 
   const bearerToken = bearerHeader.split(' ')[1];
+  console.log(bearerToken)
 
   try {        
-    const { roleId } = jwt.verify( bearerToken, process.env.SECRET_JWT_SEED );
-    if( roleId !== 1 ){
+    const { dataValues } = jwt.verify( bearerToken, process.env.SECRET_JWT_SEED );
+    console.log(dataValues)
+    if( dataValues.roleId !== 1 ){
       return res.status(401).json({
             ok: false,
             error: 'Not authorized'

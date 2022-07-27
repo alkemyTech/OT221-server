@@ -14,13 +14,13 @@ const getAllTestimonials = async (req, res, next) => {
         res.json(allTestimonials)
     }
     catch (err) {
-        
+        console.log(err)
         next(err)
     }
 
 }
 
-const deleteTestimonial = async (req, res) =>{
+const deleteTestimonial = async (req, res, next) => {
 
     const testimonialId = Number(req.params.id)
 
@@ -31,20 +31,19 @@ const deleteTestimonial = async (req, res) =>{
 
     } catch (err) {
 
-        res.status(500).json({err: err.message})
+        next(err)
     }
-}  
-const createNewTestimonial = async (req, res) => {
+}
+const createNewTestimonial = async (req, res, next) => {
+ 
     try {
-        console.log(req)
-        const image = await fileServices.checkFileAndUpload(req.file)
         const testimonialSaved = await testimonialService.createTestimonial({
             ...req.body,
-            image
         })
         res.status(201).json(testimonialSaved)
     } catch (err) {
-        res.status(500).json(err);
+
+        next(err);
     }
 }
 

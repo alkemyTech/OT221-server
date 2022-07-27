@@ -32,21 +32,34 @@ const updateEntry = async (newContent) =>{
   return updatedEntry
 }
 
-const findAllNews = async() => {
+const findAllNews = async(limit, page) => {
 
-    const entries = await Entry.findAll({ where:{ type:"news" } });
-    
-    return entries;
-  }
-  const deleteEntryById = async(id) => {
-   
-    const deletedEntry = await Entry.findOne({ where:{ id : id } });
-    if(!deletedEntry){
-      return null
+    if( !limit && !page ){
+      const entries = await Entry.findAndCountAll({ where:{ type:"news" },order: [
+        ['createdAt', 'DESC'],
+    ], });
+      return { result: entries.rows };
     }
-    await deletedEntry.destroy()
-    return deletedEntry
-   }
+
+    const offset = limit * (page - 1);
+    const entries = await Entry.findAndCountAll({ where:{ type:"news" }, offset, limit, order: [
+      ['createdAt', 'DESC'],
+  ]});
+    
+    const pages = Math.ceil(entries.count / limit);
+    
+    return { result: entries.rows, count: entries.count, pages };
+  }
+
+const deleteEntryById = async(id) => {
+  
+  const deletedEntry = await Entry.findOne({ where:{ id : id } });
+  if(!deletedEntry){
+    return null
+  }
+  await deletedEntry.destroy()
+  return deletedEntry
+  }
 
 module.exports = {
   updateEntry,

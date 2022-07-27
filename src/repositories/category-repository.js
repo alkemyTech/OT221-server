@@ -20,7 +20,7 @@ const saveCategory = async (newCategory) => {
 const listAllCategory = async (page, limit) => {
     const offset = page * limit
     const { count, rows } = await Category.findAndCountAll({
-        attributes: ['id', 'name'],
+        attributes: ['id', 'name', 'description'],
         raw: true,
         offset: offset,
         limit

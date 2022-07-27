@@ -24,8 +24,13 @@ const deleteTestimonial = async (testimonialId) =>{
     return deletedTestimonial
 }
 const createTestimonial = async( testimonial ) =>{
-    const testimonialStored = await testimonialRepository.createTestimony(testimonial);
-    return testimonialStored;
+    const newTestimonial =  await testimonialRepository.getTestimonialByUserId(testimonial.userId)
+    console.log(newTestimonial)
+    if(!newTestimonial){
+       return await testimonialRepository.saveTestimonial(testimonial);
+    }
+    testimonial.id = newTestimonial.id
+    return await testimonialRepository.saveTestimonial(testimonial);
   }
 
 

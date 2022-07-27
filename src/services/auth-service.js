@@ -35,15 +35,13 @@ const register = async (newUser) => {
     catch(err){
 
         if (err instanceof UserNotFoundError){
-
+            const uncryptedPassword = newUser.password
             const password = bcrypt.hashSync(newUser.password, 10);
             newUser.password = password
             newUser.roleId = 2
             await userService.saveUser(newUser)
-            const accessToken = await generateAccessToken(newUser)
-            delete newUser.password
-
-            return  { accessToken , user:newUser }
+            newUser.password = uncryptedPassword
+            return await login(newUser)
         }
         throw err
     }

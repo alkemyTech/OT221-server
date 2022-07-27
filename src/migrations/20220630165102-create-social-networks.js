@@ -14,7 +14,7 @@ module.exports = {
             link: {
                 type: Sequelize.STRING
             },
-            bootstrapIconName:{
+            bootstrapIconName: {
                 type: Sequelize.STRING
             },
             organization_id: {

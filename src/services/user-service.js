@@ -20,9 +20,9 @@ const saveUser = async (user) => {
 }
 
 
-const getAllUsers = async (page) => {
+const getAllUsers = async (query) => {
     
-    const usersForPage = await userRepository.getAllUsers(page)
+    const usersForPage = await userRepository.getAllUsers(query)
 
     if(!usersForPage){
         throw new UsersTableEmptyError()
@@ -39,9 +39,19 @@ const deleteUserById = async (id) => {
     return user;
 }
 
+const updateUserById = async (updatedUserData) => {
+    const user = await userRepository.updateUserById(updatedUserData)
+    if (!user) {
+        throw new Error(`El usuario con id: ${id} no existe`)
+    }
+    return user;
+}
+
+
 module.exports = {
     getUserByEmail,
     saveUser,
     getAllUsers,
-    deleteUserById
+    deleteUserById,
+    updateUserById
 }

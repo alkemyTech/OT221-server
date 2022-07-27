@@ -8,9 +8,9 @@ const checkAdminUser = require("../middlewares/authentication/check-admin-user")
 router.get('/', categoryController.getListCategory)
 
 router.put('/:id', checkAdminUser, CategoryDataValidation, categoryController.updateCategory)
-router.post("/", CategoryDataValidation, categoryController.createCategory);
+router.post("/",checkAdminUser, CategoryDataValidation, categoryController.createCategory);
 
-router.delete('/:id', categoryController.deleteCategory)
+router.delete('/:id',checkAdminUser, categoryController.deleteCategory)
 
 router.get('/', checkAdminUser, categoryController.getListCategory)
 

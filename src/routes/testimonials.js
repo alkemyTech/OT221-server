@@ -10,7 +10,6 @@ router.get("/:limit/:page", testimonialController.getAllTestimonials)
 router.delete("/:id", testimonialController.deleteTestimonial)
 
 router.post("/",
-  validateFile,
   validateCreateTestimonial,
   testimonialController.createNewTestimonial);
 

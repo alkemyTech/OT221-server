@@ -39,7 +39,7 @@ const createCategory = async (req, res) => {
         if (!errorsRegister.isEmpty()) {
             res.status(406).json(errorsRegister.mapped())
         } else {
-            const newCategory = await categoryService.createCategory({ ...body })
+            const newCategory = await categoryService.createCategory({ ...req.body })
 
             res.json({ categoryCreated: newCategory })
         }
