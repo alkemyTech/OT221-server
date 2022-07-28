@@ -10,6 +10,18 @@ class OrganizationNotFoundError extends Error {
     }
 }
 
+class InvalidOrganizationIdParamError extends Error {
+
+    constructor(){
+        super()
+        this.name = this.constructor.name
+        this.message = 'El parámetro id en la url no es un número'
+        this.code = 400
+    }
+}
+
+
 module.exports = {
     OrganizationNotFoundError,
+    InvalidOrganizationIdParamError
 }
