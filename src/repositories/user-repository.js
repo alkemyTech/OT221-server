@@ -76,8 +76,8 @@ const getAllUsers = async (query) => {
 
 const deleteUserById = async (id) =>{
     const user = await User.destroy({where:{id: id}})
-    if (!user){
-        return "User does not exist"
+    if (user === 0){
+        return 0
     }
     return "User deleted"
 }
@@ -88,7 +88,7 @@ const updateUserById = async (updatedUserData) => {
         where: { id: updatedUserData.id },
       })
     if (user[0] === 0){
-        return "User does not exist"
+        return 0
     }
     return updatedUserData
 }

@@ -33,16 +33,16 @@ const getAllUsers = async (query) => {
 
 const deleteUserById = async (id) => {
     const user = await userRepository.deleteUserById(id)
-    if (!user) {
-        throw new Error(`El usuario con id: ${id} no existe`)
+    if (user == 0) {
+        throw new UserNotFoundError(`El usuario con id: ${id} no existe`)
     }
     return user;
 }
 
 const updateUserById = async (updatedUserData) => {
     const user = await userRepository.updateUserById(updatedUserData)
-    if (!user) {
-        throw new Error(`El usuario con id: ${id} no existe`)
+    if (user == 0) {
+        throw new UserNotFoundError(`El usuario con id: ${updatedUserData.id} no existe`)
     }
     return user;
 }

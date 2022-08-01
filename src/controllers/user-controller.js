@@ -21,8 +21,7 @@ const deleteUser = async (req, res, next) => {
         const user = await userService.deleteUserById(userId)
         res.status(200).json(user)
     } catch (err) {
-        console.log(err)
-        res.status(500).json(err)
+        next(err)
     }
 }
 

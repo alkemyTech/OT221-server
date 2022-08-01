@@ -1,5 +1,4 @@
 const testimonialService = require('../services/testimonial-service')
-
 const fileServices = require("../services/fileServices");
 
 
@@ -47,8 +46,27 @@ const createNewTestimonial = async (req, res, next) => {
     }
 }
 
+const updateTestimony = async (req,res,next) => {
+    try {
+        const id = req.params.id;
+        const image = await fileServices.checkFileAndUpload(req.file);
+        const testimonyUpdated = await testimonialService.updateTestimony({
+            ...req.body,
+            image,
+            id
+        })
+        res.status(200).json(testimonyUpdated);
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+}
+
+
 module.exports = {
     getAllTestimonials,
+    updateTestimony,
     deleteTestimonial,
     createNewTestimonial
 }

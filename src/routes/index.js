@@ -29,6 +29,4 @@ router.use("/categories", categoriesRoutes)
 
 router.use("/members", memberRoutes);
 
-
-
 module.exports = router;

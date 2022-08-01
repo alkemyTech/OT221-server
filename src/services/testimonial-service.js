@@ -33,9 +33,18 @@ const createTestimonial = async( testimonial ) =>{
     return await testimonialRepository.saveTestimonial(testimonial);
   }
 
+  const updateTestimony = async (newContent) => {
+    const testimonyUpdated = await testimonialRepository.updateTestimony(newContent);
+    if (!testimonyUpdated) {
+        throw new Error('El testimonio que desea modificar no existe.');
+    }
+    return testimonyUpdated;
+}
+
 
 module.exports= {
     getAllTestimonials,
+    updateTestimony,
     deleteTestimonial,
     createTestimonial
 }

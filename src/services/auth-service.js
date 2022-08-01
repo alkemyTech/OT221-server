@@ -11,7 +11,7 @@ const login = async (body) => {
     const user = await userService.getUserByEmail(body.email)
     if (bcrypt.compareSync(body.password, user.password)) {
         const accessToken = await generateAccessToken(user)
-        delete await user.password
+        delete user.dataValues.password
         return { accessToken , user }
     } else {
         throw new WrongPasswordError()

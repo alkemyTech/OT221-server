@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get('/', memberController.getListMember)
 
+router.put('/:id', checkAdminUser, memberController.updateMember)
+
 router.post("/",
     validateFile,
     validateCreateMember,

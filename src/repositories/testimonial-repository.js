@@ -32,6 +32,13 @@ const saveTestimonial = async (testimonial) => {
     return testimonialStored
 }
 
+const updateTestimony = async (newContent) => {
+    const testimonyUpdated = await Testimonial.update(newContent,{ where: { id: newContent.id } });
+    if (testimonyUpdated[0] === 0) {
+        throw new Error('El testimonio que desea modificar no existe.');
+    }
+    return "Testimonio actualizado";
+}
 
 
 
@@ -56,6 +63,7 @@ const getTestimonialByUserId = async (id)=>{
 module.exports= {
     getAllTestimonials,
     deleteTestimonial,
+    updateTestimony,
     saveTestimonial,
     getTestimonialByUserId
 
