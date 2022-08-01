@@ -1,3 +1,4 @@
+
 const memberService = require('../services/member-service');
 const fileServices = require('../services/fileServices');
 const { uploadFile } = require('../services/s3-service');
@@ -18,16 +19,6 @@ const createNewMember = async (req, res, next) => {
         console.log(error)
     }
 }
-
-const getListMember = async (req, res) => {
-    try {
-        const { query } = req;
-
-        const members = await memberService.getListAllMembers(query)
-
-        res.status(200).json(members)
-const memberService = require("../services/member-service")
-const fileServices = require("../services/fileServices");
 
 const updateMember = async (req, res, next) => {
     try {
@@ -51,6 +42,7 @@ const getListMember = async (req,res)=>{
      const members= await memberService.getListAllMembers(query)
 
      res.status(200).json(members) 
+     
     } catch (err) {
         res.status(500).json(err.message)
         console.log(err)
