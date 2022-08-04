@@ -17,6 +17,16 @@ const updateMember = async (newContent) => {
     return member
 }
 
+const deleteMember = async (memberId) => {
+    const member = await memberRepository.deleteMember(memberId)
+    console.log(member)
+    if(member === 0){
+        console.log("error")
+        throw new MemberNotFoundError(memberId)
+    }
+    return member
+}
+
 
 const getListAllMembers = async (query) => {
     const page = Number(query.page) - 1;
@@ -25,8 +35,10 @@ const getListAllMembers = async (query) => {
     return members
 }
 
+
 module.exports={
     getListAllMembers,
     createMember,
-    updateMember
+    updateMember,
+    deleteMember
 }

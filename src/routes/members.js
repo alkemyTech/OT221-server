@@ -14,4 +14,8 @@ router.post("/",
     memberController.createNewMember
 );
 
+router.delete('/:id', memberController.deleteMember)
+
+router.get('/',memberController.getListMember) 
+
 module.exports = router

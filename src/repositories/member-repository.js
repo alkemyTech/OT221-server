@@ -1,5 +1,14 @@
 
 const { Members, Role_ong, sequelize } = require('../models')
+const { Members } = require('../models')
+
+
+const deleteMember = async (id) => {
+    console.log("asd",id)
+    const member = await Members.destroy({ where: { id: id } })
+
+    return member
+}
 
 const updateMember = async (newContent) => {
     const memberUpdated = await Members.update(newContent,{where:{id: newContent.id}})
@@ -26,5 +35,8 @@ const postMember = async (member) => {
 module.exports={
     getAllMembers,
     updateMember,
-    postMember 
+    postMember,
+    deleteMember
 }
+
+

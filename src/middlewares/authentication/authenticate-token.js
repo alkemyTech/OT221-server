@@ -1,28 +1,32 @@
 const jwt = require('jsonwebtoken')
+const { InvalidTokenError, ExpiredTokenError } = require('../../errors/auth-errors')
 
 
 //This middleware adds the encoded data from the jwt to the request object
 
-const  authenticateToken = async (req,res,next)=>{
- 
-    const authHeader = req.headers['authorization']
-    
-    const token = authHeader && authHeader.split(' ')[1]
-  
-    if(!token) {
-        throw new InvalidTokenError()
-    }
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET,  (err,decodedUser)=>{
+const authenticateToken = async (req, res, next) => {
+    try {
+        const authHeader = req.headers['authorization']
 
-        if(err){
-            throw new ExpiredTokenError()
+        const token = authHeader && authHeader.split(' ')[1]
+
+        if (!token) {
+            throw new InvalidTokenError()
         }
-        req.currentUser = decodedUser
-       
-        next()
-    })
-  }
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedUser) => {
+            if (err) {
+                throw new ExpiredTokenError()
+            }
+            req.currentUser = decodedUser
 
-  module.exports = {
+            next()
+        })
+    } catch (err) {
+        console.log(err)
+        next(err)
+    }
+}
+
+module.exports = {
     authenticateToken,
-  }
+}

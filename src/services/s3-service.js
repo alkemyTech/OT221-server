@@ -32,8 +32,19 @@ const getFileStream = (fileKey) => {
     return s3.getObject(downloadParams).createReadStream()
 }
 
+const deleteFileFromS3 =  async(fileKey) =>{
+    const deleteParams = {
+        Key:fileKey,
+        Bucket: bucketName
+    };
+    console.log("s3",fileKey)
+    return await s3.deleteObject(deleteParams).promise();
+};
+
+
 
 module.exports = {
     uploadFile,
-    getFileStream
+    getFileStream,
+    deleteFileFromS3
 }

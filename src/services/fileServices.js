@@ -20,7 +20,16 @@ const checkFileAndUpload = async (file) => {
   return null
 }
 
+//Deletes file from s3 when needed, currently it seems we dont have permission to delete things from the bucket
+const deleteFileFromS3 = async (key) => {
+  if  (key) {
+    const deleteImageMember = await s3Service.deleteFileFromS3(key) 
+    console.log(deleteImageMember)
+  }  
+}
+
 module.exports = {
   deleteTempFile,
-  checkFileAndUpload
+  checkFileAndUpload,
+  deleteFileFromS3
 };

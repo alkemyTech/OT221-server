@@ -20,6 +20,21 @@ const createNewMember = async (req, res, next) => {
     }
 }
 
+
+const deleteMember = async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const memberDeleted = await memberService.deleteMember(id);
+    //Delete member image from s3, currently we don't have permission to delete files from the bucket (uncomment when we do)
+    //const image = await fileServices.deleteFileFromS3(memberDeleted.key)
+    //console.log(image)
+    res.status(201).json({message: "Miembro eliminado exitosamente", userDeleted:memberDeleted});
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+
 const updateMember = async (req, res, next) => {
     try {
         const id = req.params.id
@@ -52,5 +67,7 @@ const getListMember = async (req,res)=>{
 module.exports = {
     createNewMember,
     updateMember,
-    getListMember
+    getListMember,
+    deleteMember
 }
+

@@ -11,39 +11,39 @@ const jwt = require('jsonwebtoken');
 
 const checkAdminUser = (req, res, next) => {
 
-  const bearerHeader = req.headers['authorization'];
+    const bearerHeader = req.headers['authorization'];
 
-  if(!bearerHeader ){
-    return res.status(401).json({
-      ok: false,
-      error: 'No token attached'
-    })
-  }
-  
-
-  const bearerToken = bearerHeader.split(' ')[1];
-  console.log(bearerToken)
-
-  try {        
-    const { dataValues } = jwt.verify( bearerToken, process.env.SECRET_JWT_SEED );
-    console.log(dataValues)
-    if( dataValues.roleId !== 1 ){
-      return res.status(401).json({
+    if (!bearerHeader) {
+        return res.status(401).json({
             ok: false,
-            error: 'Not authorized'
+            error: 'No token attached'
         })
-    } 
+    }
 
-  } catch (error) {
-      // console.log(error);
-      return res.status(401).json({
-          ok: false,
-          error: "Not a valid token"
-      })
-  }
 
-  next();
+    const bearerToken = bearerHeader.split(' ')[1];
 
-} 
+
+    try {
+        const { dataValues } = jwt.verify(bearerToken, process.env.SECRET_JWT_SEED);
+
+        if (dataValues.roleId !== 1) {
+            return res.status(401).json({
+                ok: false,
+                error: 'Not authorized'
+            })
+        }
+
+    } catch (error) {
+        // console.log(error);
+        return res.status(401).json({
+            ok: false,
+            error: "Not a valid token"
+        })
+    }
+
+    next();
+
+}
 
 module.exports = checkAdminUser;
