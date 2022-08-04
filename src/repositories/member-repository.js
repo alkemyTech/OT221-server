@@ -1,3 +1,5 @@
+
+const { Members, Role_ong, sequelize } = require('../models')
 const { Members } = require('../models')
 
 
@@ -25,8 +27,16 @@ const getAllMembers = async(page,limit)=>{
     })
     return { total_members: count, total_pages: Math.ceil(count / limit), current_page: page + 1, members: rows }
 }
+
+const postMember = async (member) => {
+    const memberStored = await Members.create(member)
+    return memberStored
+}
 module.exports={
     getAllMembers,
     updateMember,
+    postMember,
     deleteMember
 }
+
+

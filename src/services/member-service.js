@@ -1,6 +1,11 @@
+const memberRepository = require('../repositories/member-repository');
 const memberRepository = require("../repositories/member-repository")
 const { MemberNotFoundError } = require('../errors/member-errors');
 
+const createMember = async (member) => {
+    const memberStored = await memberRepository.postMember(member);
+    return memberStored;
+}
 
 const updateMember = async (newContent) => {
     console.log(newContent)
@@ -30,8 +35,10 @@ const getListAllMembers = async (query) => {
     return members
 }
 
-module.exports ={
+
+module.exports={
+    getListAllMembers,
+    createMember,
     updateMember,
-    deleteMember,
-    getListAllMembers
-} 
+    deleteMember
+}
